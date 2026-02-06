@@ -4,10 +4,19 @@ declare(strict_types=1);
 
 namespace Oizys\Hungarian;
 
+use ArrayIterator;
+use Countable;
+use IteratorAggregate;
+use JsonSerializable;
+use Stringable;
+use Traversable;
+
 /**
  * Immutable result of a Hungarian algorithm solve.
+ *
+ * @implements IteratorAggregate<int, array{int, int}>
  */
-class Result
+class Result implements Countable, IteratorAggregate, JsonSerializable, Stringable
 {
     /**
      * @param  array<int, array{int, int}>  $assignments
@@ -49,5 +58,36 @@ class Result
         }
 
         return $map;
+    }
+
+    public function count(): int
+    {
+        return count($this->assignments);
+    }
+
+    /**
+     * @return Traversable<int, array{int, int}>
+     */
+    public function getIterator(): Traversable
+    {
+        return new ArrayIterator($this->assignments);
+    }
+
+    /**
+     * @return array{assignments: array<int, array{int, int}>, cost: int|float}
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'assignments' => $this->assignments,
+            'cost' => $this->cost,
+        ];
+    }
+
+    public function __toString(): string
+    {
+        $n = count($this->assignments);
+
+        return "{$n} assignments, cost: {$this->cost}";
     }
 }
