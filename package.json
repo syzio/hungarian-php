@@ -3,5 +3,6 @@
   "devDependencies": {
     "@release-it/conventional-changelog": "^10.0",
     "release-it": "^19.0"
-  }
+  },
+  "version": "1.0.0"
 }
