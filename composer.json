@@ -1,0 +1,47 @@
+{
+  "$schema": "https://getcomposer.org/schema.json",
+  "name": "oizys/hungarian",
+  "description": "Kuhn-Munkres (Hungarian) algorithm for the assignment problem",
+  "type": "library",
+  "license": "MIT",
+  "homepage": "https://github.com/syzio/hungarian-php",
+  "support": {
+    "issues": "https://github.com/syzio/hungarian-php/issues"
+  },
+  "require": {
+    "php": "^8.3"
+  },
+  "require-dev": {
+    "laravel/pint": "^1.25",
+    "pestphp/pest": "^4.3",
+    "phpstan/phpstan": "^2.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Oizys\\Hungarian\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "lint": "pint --parallel",
+    "test": "XDEBUG_MODE=coverage pest --coverage --parallel",
+    "ci": [
+      "pint --test --parallel",
+      "phpstan",
+      "@test"
+    ]
+  },
+  "config": {
+    "sort-packages": true,
+    "preferred-install": "dist",
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

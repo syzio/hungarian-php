@@ -1,0 +1,12 @@
+* text=auto eol=lf
+
+*.php diff=php
+
+# Excluded in package distribution
+tests/ export-ignore
+.gitattributes export-ignore
+.release-it.json export-ignore
+package.json export-ignore
+phpstan.neon export-ignore
+phpunit.xml export-ignore
+pint.json export-ignore

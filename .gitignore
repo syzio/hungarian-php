@@ -1,0 +1,9 @@
+.cursor/
+.idea/
+.vscode/
+.zed/
+node_modules/
+vendor/
+.DS_Store
+composer.lock
+package-lock.json

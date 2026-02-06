@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "devDependencies": {
+    "@release-it/conventional-changelog": "^10.0",
+    "release-it": "^19.0"
+  }
+}
