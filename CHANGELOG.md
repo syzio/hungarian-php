@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/syzio/hungarian-php/compare/1.0.1...1.0.2) (2026-02-07)
+
+### Bug Fixes
+
+* better mode exception ([e68a2d8](https://github.com/syzio/hungarian-php/commit/e68a2d81b5939bf2d19afa432bfbd6b46f76259b))
+* void return in tests ([cac7bc6](https://github.com/syzio/hungarian-php/commit/cac7bc697911f21b1f7e4b6f3504e2168f2634f7))
+
 ## [1.0.1](https://github.com/syzio/hungarian-php/compare/1.0.0...1.0.1) (2026-02-07)
 
 ### Bug Fixes
