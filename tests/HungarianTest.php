@@ -373,4 +373,4 @@ test('jagged matrix throws', function (): void {
 
 test('invalid mode throws', function (): void {
     new Hungarian('invalid');
-})->throws(InvalidMatrixException::class, 'Invalid mode');
+})->throws(\InvalidArgumentException::class, 'Invalid mode');

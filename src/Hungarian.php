@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Oizys\Hungarian;
 
+use InvalidArgumentException;
+
 /**
  * Kuhn-Munkres (Hungarian) algorithm for the assignment problem.
  *
@@ -18,12 +20,12 @@ class Hungarian
     public const string MODE_MAXIMIZE = 'maximize';
 
     /**
-     * @throws InvalidMatrixException If mode is invalid.
+     * @throws InvalidArgumentException If mode is invalid.
      */
     public function __construct(private readonly string $mode = self::MODE_MINIMIZE)
     {
         if ($mode !== self::MODE_MINIMIZE && $mode !== self::MODE_MAXIMIZE) {
-            throw new InvalidMatrixException("Invalid mode \"{$mode}\". Use Hungarian::MODE_MINIMIZE or Hungarian::MODE_MAXIMIZE.");
+            throw new InvalidArgumentException("Invalid mode \"{$mode}\". Use Hungarian::MODE_MINIMIZE or Hungarian::MODE_MAXIMIZE.");
         }
     }
 
