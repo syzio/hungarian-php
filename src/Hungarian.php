@@ -23,9 +23,7 @@ class Hungarian
     public function __construct(private readonly string $mode = self::MODE_MINIMIZE)
     {
         if ($mode !== self::MODE_MINIMIZE && $mode !== self::MODE_MAXIMIZE) {
-            throw new InvalidMatrixException(
-                "Invalid mode \"{$mode}\". Use Hungarian::MODE_MINIMIZE or Hungarian::MODE_MAXIMIZE.",
-            );
+            throw new InvalidMatrixException("Invalid mode \"{$mode}\". Use Hungarian::MODE_MINIMIZE or Hungarian::MODE_MAXIMIZE.");
         }
     }
 
@@ -249,18 +247,14 @@ class Hungarian
         }
 
         if (! array_is_list($matrix)) {
-            throw new InvalidMatrixException(
-                'Matrix must be a sequential integer-indexed array.',
-            );
+            throw new InvalidMatrixException('Matrix must be a sequential integer-indexed array.');
         }
 
         $cols = null;
         foreach ($matrix as $ri => $row) {
             if (! is_array($row)) {
                 $type = gettype($row);
-                throw new InvalidMatrixException(
-                    "Row {$ri} must be an array, got {$type}.",
-                );
+                throw new InvalidMatrixException("Row {$ri} must be an array, got {$type}.");
             }
 
             $length = count($row);
@@ -270,25 +264,19 @@ class Hungarian
             }
 
             if (! array_is_list($row)) {
-                throw new InvalidMatrixException(
-                    "Row {$ri} must be a sequential integer-indexed array.",
-                );
+                throw new InvalidMatrixException("Row {$ri} must be a sequential integer-indexed array.");
             }
 
             if ($cols === null) {
                 $cols = $length;
             } elseif ($length !== $cols) {
-                throw new InvalidMatrixException(
-                    "All rows must have the same number of columns. Row 0 has {$cols} columns, row {$ri} has {$length}.",
-                );
+                throw new InvalidMatrixException("All rows must have the same number of columns. Row 0 has {$cols} columns, row {$ri} has {$length}.");
             }
 
             foreach ($row as $ci => $value) {
                 if (! is_int($value) && ! is_float($value)) {
                     $type = gettype($value);
-                    throw new InvalidMatrixException(
-                        "Value at [{$ri}][{$ci}] must be int or float, got {$type}.",
-                    );
+                    throw new InvalidMatrixException("Value at [{$ri}][{$ci}] must be int or float, got {$type}.");
                 }
             }
         }
