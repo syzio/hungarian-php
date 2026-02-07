@@ -28,11 +28,13 @@
   },
   "scripts": {
     "lint": "pint --parallel",
-    "test": "XDEBUG_MODE=coverage pest --coverage --parallel",
-    "ci": [
-      "pint --test --parallel",
-      "phpstan",
-      "@test"
+    "test:style": "pint --parallel --test --no-ansi",
+    "test:static": "phpstan --no-ansi",
+    "test:unit": "XDEBUG_MODE=coverage pest --parallel --coverage",
+    "test": [
+      "@test:style",
+      "@test:static",
+      "@test:unit"
     ]
   },
   "config": {
