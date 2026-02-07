@@ -161,7 +161,7 @@ class Hungarian
             $result[] = [$p[$j] - 1, $j - 1];
         }
 
-        usort($result, static fn ($a, $b) => $a[0] - $b[0]);
+        usort($result, static fn (array $a, array $b): int => $a[0] - $b[0]);
 
         return $result;
     }
