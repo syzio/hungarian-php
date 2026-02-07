@@ -10,7 +10,7 @@ use Oizys\Hungarian\Result;
 // Core algorithm
 // ---------------------------------------------------------------
 
-test('classic 4x4 example', function () {
+test('classic 4x4 example', function (): void {
     $result = (new Hungarian)->solve([
         [82, 83, 69, 92],
         [77, 37, 49, 92],
@@ -30,26 +30,26 @@ test('classic 4x4 example', function () {
     expect($cols)->toBe([0, 1, 2, 3]);
 });
 
-test('1x1 matrix', function () {
+test('1x1 matrix', function (): void {
     $result = (new Hungarian)->solve([[42]]);
 
     expect($result->cost())->toBe(42);
     expect($result->assignments())->toBe([[0, 0]]);
 });
 
-test('2x2 matrix', function () {
+test('2x2 matrix', function (): void {
     $result = (new Hungarian)->solve([[1, 2], [3, 4]]);
 
     expect($result->cost())->toBe(5);
 });
 
-test('3x3 matrix', function () {
+test('3x3 matrix', function (): void {
     $result = (new Hungarian)->solve([[10, 5, 13], [3, 7, 2], [8, 12, 6]]);
 
     expect($result->cost())->toBe(14);
 });
 
-test('5x5 matrix', function () {
+test('5x5 matrix', function (): void {
     $result = (new Hungarian)->solve([
         [7, 53, 183, 439, 863],
         [497, 383, 563, 79, 973],
@@ -66,26 +66,26 @@ test('5x5 matrix', function () {
     expect($cols)->toBe([0, 1, 2, 3, 4]);
 });
 
-test('all zeros', function () {
+test('all zeros', function (): void {
     $result = (new Hungarian)->solve([[0, 0, 0], [0, 0, 0], [0, 0, 0]]);
 
     expect($result->cost())->toBe(0);
 });
 
-test('identity-like matrix', function () {
+test('identity-like matrix', function (): void {
     $result = (new Hungarian)->solve([[0, 100, 100], [100, 0, 100], [100, 100, 0]]);
 
     expect($result->cost())->toBe(0);
     expect($result->map())->toBe([0 => 0, 1 => 1, 2 => 2]);
 });
 
-test('float values', function () {
+test('float values', function (): void {
     $result = (new Hungarian)->solve([[1.5, 2.7], [3.1, 0.8]]);
 
     expect($result->cost())->toEqualWithDelta(2.3, 1e-10);
 });
 
-test('negative values', function () {
+test('negative values', function (): void {
     $result = (new Hungarian)->solve([[-1, -2], [-3, -4]]);
 
     expect($result->cost())->toBe(-5);
@@ -95,7 +95,7 @@ test('negative values', function () {
 // Maximization
 // ---------------------------------------------------------------
 
-test('maximize 3x3', function () {
+test('maximize 3x3', function (): void {
     $result = (new Hungarian(Hungarian::MODE_MAXIMIZE))->solve([
         [10, 5, 13],
         [3, 7, 2],
@@ -105,7 +105,7 @@ test('maximize 3x3', function () {
     expect($result->cost())->toBe(28);
 });
 
-test('maximize 2x2', function () {
+test('maximize 2x2', function (): void {
     $result = (new Hungarian(Hungarian::MODE_MAXIMIZE))->solve([[1, 2], [3, 4]]);
 
     expect($result->cost())->toBe(5);
@@ -115,7 +115,7 @@ test('maximize 2x2', function () {
 // Empty matrix
 // ---------------------------------------------------------------
 
-test('empty matrix', function () {
+test('empty matrix', function (): void {
     $result = (new Hungarian)->solve([]);
 
     expect($result->cost())->toBe(0);
@@ -127,7 +127,7 @@ test('empty matrix', function () {
 // GC safety
 // ---------------------------------------------------------------
 
-test('multiple solves on same instance', function () {
+test('multiple solves on same instance', function (): void {
     $h = new Hungarian;
 
     $r1 = $h->solve([[1, 2], [3, 4]]);
@@ -143,7 +143,7 @@ test('multiple solves on same instance', function () {
 // Result object
 // ---------------------------------------------------------------
 
-test('result map', function () {
+test('result map', function (): void {
     $result = (new Hungarian)->solve([[0, 100, 100], [100, 0, 100], [100, 100, 0]]);
 
     expect($result->map())
@@ -151,14 +151,14 @@ test('result map', function () {
         ->toBe([0 => 0, 1 => 1, 2 => 2]);
 });
 
-test('result countable', function () {
+test('result countable', function (): void {
     $result = (new Hungarian)->solve([[0, 100, 100], [100, 0, 100], [100, 100, 0]]);
 
     expect($result)->toHaveCount(3);
     expect(count($result))->toBe(3);
 });
 
-test('result iterable', function () {
+test('result iterable', function (): void {
     $result = (new Hungarian)->solve([[0, 100], [100, 0]]);
 
     $pairs = [];
@@ -169,13 +169,13 @@ test('result iterable', function () {
     expect($pairs)->toBe($result->assignments());
 });
 
-test('result stringable', function () {
+test('result stringable', function (): void {
     $result = (new Hungarian)->solve([[0, 100, 100], [100, 0, 100], [100, 100, 0]]);
 
     expect((string) $result)->toBe('3 assignments, cost: 0');
 });
 
-test('result json serializable', function () {
+test('result json serializable', function (): void {
     $result = (new Hungarian)->solve([[1, 2], [3, 4]]);
 
     $decoded = json_decode(json_encode($result), true);
@@ -185,7 +185,7 @@ test('result json serializable', function () {
     expect($decoded['assignments'])->toBe($result->assignments());
 });
 
-test('empty result interfaces', function () {
+test('empty result interfaces', function (): void {
     $result = (new Hungarian)->solve([]);
 
     expect($result)->toHaveCount(0);
@@ -193,7 +193,7 @@ test('empty result interfaces', function () {
     expect(json_encode($result))->toBe('{"assignments":[],"cost":0}');
 });
 
-test('assignments sorted by row', function () {
+test('assignments sorted by row', function (): void {
     $result = (new Hungarian)->solve([
         [82, 83, 69, 92],
         [77, 37, 49, 92],
@@ -212,28 +212,28 @@ test('assignments sorted by row', function () {
 // Rectangular matrices
 // ---------------------------------------------------------------
 
-test('tall 2x1 matrix', function () {
+test('tall 2x1 matrix', function (): void {
     $result = (new Hungarian)->solve([[0], [11]]);
 
     expect($result->cost())->toBe(0);
     expect($result->map())->toBe([0 => 0]);
 });
 
-test('wide 1x2 matrix', function () {
+test('wide 1x2 matrix', function (): void {
     $result = (new Hungarian)->solve([[0, 1]]);
 
     expect($result->cost())->toBe(0);
     expect($result->map())->toBe([0 => 0]);
 });
 
-test('tall 3x2 matrix', function () {
+test('tall 3x2 matrix', function (): void {
     $result = (new Hungarian)->solve([[5, 10], [1, 8], [7, 3]]);
 
     expect($result->cost())->toBe(4);
     expect($result)->toHaveCount(2);
 });
 
-test('wide 2x3 matrix', function () {
+test('wide 2x3 matrix', function (): void {
     $result = (new Hungarian)->solve([[5, 1, 7], [10, 8, 3]]);
 
     expect($result->cost())->toBe(4);
@@ -244,7 +244,7 @@ test('wide 2x3 matrix', function () {
 // INF (forbidden cells)
 // ---------------------------------------------------------------
 
-test('INF forbidden cells', function () {
+test('INF forbidden cells', function (): void {
     $result = (new Hungarian)->solve([
         [10, 2, INF, 15],
         [15, INF, INF, 2],
@@ -257,7 +257,7 @@ test('INF forbidden cells', function () {
     expect(is_infinite($result->cost()))->toBeFalse();
 });
 
-test('all INF 1x1', function () {
+test('all INF 1x1', function (): void {
     $result = (new Hungarian)->solve([[INF]]);
 
     expect($result->cost())->toBe(0);
@@ -268,7 +268,7 @@ test('all INF 1x1', function () {
 // Reference test cases
 // ---------------------------------------------------------------
 
-test('reference case 1', function () {
+test('reference case 1', function (): void {
     $result = (new Hungarian)->solve([
         [1, 2, 3, 0, 1],
         [0, 2, 3, 12, 1],
@@ -280,7 +280,7 @@ test('reference case 1', function () {
     expect($result->cost())->toBe(1);
 });
 
-test('reference case 2', function () {
+test('reference case 2', function (): void {
     $result = (new Hungarian)->solve([
         [0, 2, 0, 0, 1],
         [0, 3, 12, 1, 1],
@@ -292,7 +292,7 @@ test('reference case 2', function () {
     expect($result->cost())->toBe(2);
 });
 
-test('reference 10x10 case 3', function () {
+test('reference 10x10 case 3', function (): void {
     $result = (new Hungarian)->solve([
         [-3, -3, -3, -3, -2, -2, -2, -2, -99, -99],
         [-3, -3, -3, -3, -5, -5, -5, -5, -2, -99],
@@ -309,7 +309,7 @@ test('reference 10x10 case 3', function () {
     expect($result->cost())->toBe(-231);
 });
 
-test('reference 10x10 case 4', function () {
+test('reference 10x10 case 4', function (): void {
     $result = (new Hungarian)->solve([
         [-2, -2, -2, -2, -5, -5, -5, -5, -3, -99],
         [-2, -2, -2, -2, -5, -5, -5, -5, -99, -3],
@@ -326,7 +326,7 @@ test('reference 10x10 case 4', function () {
     expect($result->cost())->toBe(-227);
 });
 
-test('reference 10x10 case 5', function () {
+test('reference 10x10 case 5', function (): void {
     $result = (new Hungarian)->solve([
         [-5, -5, -5, -5, -3, -3, -3, -3, -6, -2],
         [-2, -2, -2, -2, -3, -3, -3, -3, -99, -6],
@@ -347,30 +347,30 @@ test('reference 10x10 case 5', function () {
 // Validation
 // ---------------------------------------------------------------
 
-test('empty row throws', function () {
+test('empty row throws', function (): void {
     (new Hungarian)->solve([[]]);
 })->throws(InvalidMatrixException::class, 'must not be empty');
 
-test('non-array row throws', function () {
+test('non-array row throws', function (): void {
     (new Hungarian)->solve([[1, 2], 'not an array']);
 })->throws(InvalidMatrixException::class, 'must be an array');
 
-test('non-numeric value throws', function () {
+test('non-numeric value throws', function (): void {
     (new Hungarian)->solve([[1, 'two'], [3, 4]]);
 })->throws(InvalidMatrixException::class, 'int or float');
 
-test('associative row keys throw', function () {
+test('associative row keys throw', function (): void {
     (new Hungarian)->solve(['a' => [1, 2], 'b' => [3, 4]]);
 })->throws(InvalidMatrixException::class, 'sequential');
 
-test('associative column keys throw', function () {
+test('associative column keys throw', function (): void {
     (new Hungarian)->solve([['x' => 1, 'y' => 2], ['x' => 3, 'y' => 4]]);
 })->throws(InvalidMatrixException::class, 'sequential');
 
-test('jagged matrix throws', function () {
+test('jagged matrix throws', function (): void {
     (new Hungarian)->solve([[1, 2, 3], [4, 5, 6], [7, 8]]);
 })->throws(InvalidMatrixException::class, 'same number of columns');
 
-test('invalid mode throws', function () {
+test('invalid mode throws', function (): void {
     new Hungarian('invalid');
 })->throws(InvalidMatrixException::class, 'Invalid mode');
